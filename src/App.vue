@@ -1,26 +1,46 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+import { useQuasar } from 'quasar';
+import { useQueryProvider } from 'vue-query';
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+useQueryProvider({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const $q = useQuasar();
+const darkQuery = '(prefers-color-scheme: dark)';
+const queryList = window.matchMedia(darkQuery);
+$q.dark.set(queryList.matches);
+queryList.addEventListener('change', (event) => {
+  $q.dark.set(event.matches);
+});
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<template>
+  <q-toolbar class="bg-black text-white">
+    <q-toolbar-title>
+      <q-btn :to="{ name: 'home' }">
+        Vue CRUD Client
+      </q-btn>
+    </q-toolbar-title>
+  </q-toolbar>
+  <q-layout>
+    <q-page-container>
+      <q-page class="container">
+        <RouterView />
+      </q-page>
+    </q-page-container>
+  </q-layout>
+</template>
+
+<style scoped>
+  .container {
+    width: 90%;
+    margin: 0 auto;
+  }
 </style>

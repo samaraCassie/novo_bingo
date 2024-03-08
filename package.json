@@ -1,43 +1,51 @@
 {
-  "name": "novo_bingo",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-ts-client",
+  "version": "0.0.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest --environment jsdom",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "@quasar/extras": "^1.15.3",
+    "@vueuse/rxjs": "^10.9.0",
+    "axios": "^1.6.7",
+    "d": "^1.0.2",
+    "dexie": "^3.2.5",
+    "pinia": "^2.0.21",
+    "quasar": "^2.8.3",
+    "rxjs": "^7.8.1",
+    "vue": "^3.2.38",
+    "vue-query": "^1.26.0",
+    "vue-router": "^4.1.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "@quasar/vite-plugin": "^1.2.1",
+    "@rushstack/eslint-patch": "^1.1.4",
+    "@types/babel-types": "^7.0.15",
+    "@types/jest": "^29.5.12",
+    "@types/jsdom": "^20.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^16.11.56",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@vue/eslint-config-airbnb-with-typescript": "^7.0.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/test-utils": "^2.0.2",
+    "@vue/tsconfig": "^0.1.3",
+    "eslint": "^8.22.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "jsdom": "^20.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^3.0.9",
+    "vitest": "^0.23.0",
+    "vue-tsc": "^0.40.7"
+  }
 }
