@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 /* import FriendAdder from '@/components/FriendAdder.vue'; */
-import HomeView from '@/views/HomeView.vue';
+/* import HomeView from '@/views/HomeView.vue'; */
+import CartelaAdd from '@/components/CartelaAdd.vue';
 /* import TodoView from '@/views/TodoView.vue'; */
 
 const router = createRouter({
@@ -8,8 +9,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'HomeView',
-      component: HomeView,
+      name: 'CartelaAdd',
+      component: CartelaAdd,
     }, /*  {
       path: '/',
       name: 'home',
