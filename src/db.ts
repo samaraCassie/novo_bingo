@@ -24,8 +24,6 @@ export interface Cartela {
 }
 
 export class MySubClassedDexie extends Dexie {
-  // 'friends' is added by dexie when declaring the stores()
-  // We just tell the typing system this is the case
   friends!: Table<Friend>;
 
   todos!: Table<Todo>;
@@ -37,7 +35,7 @@ export class MySubClassedDexie extends Dexie {
   constructor() {
     super('TestandoDexie');
     this.version(2).stores({
-      friends: '++id, name, age', // Primary key and indexed props
+      friends: '++id, name, age',
       todos: '++id, content, done',
       jogadores: '++id, nome, cartelas',
       cartelas: '++id, coluna, numeros, marcados',
