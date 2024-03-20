@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosResponse } from 'axios';
+/* import axios, { AxiosError, type AxiosResponse } from 'axios';
 
 import type { ErrorResponse, Todo, TodoWithId } from '@/types';
 
@@ -34,3 +34,4 @@ export async function updateOne(id: string, todo: Todo) {
 export async function deleteOne(id: string) {
   return extractData(api.delete(`/todos/${id}`));
 }
+*/

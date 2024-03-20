@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-/* import FriendAdder from '@/components/FriendAdder.vue'; */
-/* import HomeView from '@/views/HomeView.vue'; */
 import CartelaAdd from '@/components/CartelaAdd.vue';
-/* import TodoView from '@/views/TodoView.vue'; */
 
 const router = createRouter({
   history: createWebHistory('http://localhost:3633'),
