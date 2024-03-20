@@ -9,7 +9,6 @@ const numLinhas: number = 5;
 
 // Inicializando a matriz desserts com zeros
 // eslint-disable-next-line vue/max-len
-// let num: number[][] = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
 const desserts: number[][] = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
 const status = ref<string>('');
 let blocosMarcados: boolean[][];
@@ -58,7 +57,7 @@ const addCartela = async () => {
       Numeros: desserts,
       Marcados: blocosMarcados,
     });
-    status.value = `Cartela adicionada com sucesso com o id: ${id} e valores: ${desserts}`;
+    status.value = `Cartela adicionada com sucesso com o id: ${id}`;
   } catch (error) {
     status.value = `Falha ao adicionar a cartela: ${error}`;
   }
@@ -74,44 +73,57 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <section>
-      <div class="row mr-10 ml-10 mb-10">
-        <v-col cols="12" class="align-center">
-          <v-table class="v-theme--dark">
-            <thead>
-              <tr>
-                <th
-                  class="text-center"
-                  v-for="coluna in colunas"
-                  :key="coluna"
+  <div class="row justify-center">
+    <div class="col-6">
+      <q-card class="justify-center">
+        <div class="row mr-10 ml-10 mb-10">
+          <div class=" col">
+            <table class="q-pa-lg">
+              <thead>
+                <tr>
+                  <th
+                    class="text-center q-pa-md"
+                    v-for="coluna in colunas"
+                    :key="coluna"
+                  >
+                    <div>{{ coluna }}</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <td
+                  v-for="(item, index) in desserts"
+                  :key="index"
                 >
-                  <v-col>{{ coluna }}</v-col>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(item, index) in desserts"
-                :key="index"
-              >
-                <td v-for="(numero, key) in item" :key="key">
-                  <div>
-                    {{ numero }}
-                  </div>
+                  <tr v-for="(numero, key) in item" :key="key">
+                    <div class="q-pa-md">
+                      {{ numero }}
+                    </div>
+                  </tr>
                 </td>
-              </tr>
-            </tbody>
-            <div>{{ status }}</div>
-          </v-table>
-        </v-col>
-      </div>
-      <section class="secBotoes">
-        <button type="button" @click="addCartela">Adicionar Cartela</button>
-      </section>
-    </section>
+              </tbody>
+              <div>{{ status }}</div>
+            </table>
+          </div>
+        </div>
+        <section class="secBotoes">
+          <button type="button" @click="addCartela">Adicionar Cartela</button>
+        </section>
+      </q-card>
+    </div>
   </div>
 </template>
 
 <style lang="css">
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+thead {
+  font-size: 4.2vmin;
+  color: rgb(141, 114, 114);
+}
+
+tbody {
+  font-size: 3vmin;
+}
 </style>
