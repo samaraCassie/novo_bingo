@@ -57,7 +57,7 @@ const addCartela = async () => {
       Numeros: desserts,
       Marcados: blocosMarcados,
     });
-    status.value = `Cartela adicionada com sucesso com o id: ${id}`;
+    status.value = `id: ${id}`;
   } catch (error) {
     status.value = `Falha ao adicionar a cartela: ${error}`;
   }
@@ -69,17 +69,18 @@ const addCartela = async () => {
 
 onMounted(() => {
   inicializarDesserts();
+  addCartela();
 });
 </script>
 
 <template>
   <div class="row justify-center">
-    <div class="col-6">
+    <div>
       <q-card class="justify-center">
         <div class="row mr-10 ml-10 mb-10">
-          <div class=" col">
+          <div class="col">
             <table class="q-pa-lg">
-              <thead>
+              <thead class="relative-position">
                 <tr>
                   <th
                     class="text-center q-pa-md"
@@ -96,20 +97,22 @@ onMounted(() => {
                   :key="index"
                 >
                   <tr v-for="(numero, key) in item" :key="key">
-                    <div class="q-pa-md">
+                    <div class="q-pa-md text-center">
                       {{ numero }}
                     </div>
                   </tr>
                 </td>
               </tbody>
-              <div>{{ status }}</div>
+              <tfoot class="relative-position">
+                {{ status }}
+              </tfoot>
             </table>
           </div>
         </div>
-        <section class="secBotoes">
-          <button type="button" @click="addCartela">Adicionar Cartela</button>
-        </section>
       </q-card>
+      <section class="secBotoes q-mt-lg">
+        <q-btn color="white" text-color="black" label="Adicionar Cartela" @click="addCartela" />
+      </section>
     </div>
   </div>
 </template>
@@ -126,4 +129,5 @@ thead {
 tbody {
   font-size: 3vmin;
 }
+
 </style>
