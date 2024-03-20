@@ -11,11 +11,7 @@ const router = createRouter({
       path: '/',
       name: 'CartelaAdd',
       component: CartelaAdd,
-    }, /*  {
-      path: '/',
-      name: 'home',
-      component: HomeView,
-    }, */
+    },
   ],
 });
 
