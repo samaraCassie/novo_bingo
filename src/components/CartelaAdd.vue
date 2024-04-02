@@ -3,9 +3,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { db } from '@/db';
+import { IndexableType } from 'dexie';
+
+/* const Props = defineProps({
+  teste: {
+    type: String,
+    require: true,
+    default: '',
+  },
+}); */
 
 const colunas : string[] = ['B', 'I', 'N', 'G', 'O'];
 const numLinhas: number = 5;
+const id = ref<IndexableType>(null);
 
 // Inicializando a matriz desserts com zeros
 // eslint-disable-next-line vue/max-len
@@ -53,11 +63,11 @@ const addCartela = async () => {
   try {
     await inicializarDesserts();
     console.log(desserts.values);
-    const id = await db.cartelas.add({
+    id.value = await db.cartelas.add({
       Numeros: desserts,
       Marcados: blocosMarcados,
     });
-    status.value = `id: ${id}`;
+    status.value = `id: ${id.value}`;
   } catch (error) {
     status.value = `Falha ao adicionar a cartela: ${error}`;
   }
@@ -71,6 +81,7 @@ onMounted(() => {
   inicializarDesserts();
   addCartela();
 });
+
 </script>
 
 <template>
@@ -110,9 +121,6 @@ onMounted(() => {
           </div>
         </div>
       </q-card>
-      <section class="secBotoes q-mt-lg">
-        <q-btn color="white" text-color="black" label="Adicionar Cartela" @click="addCartela" />
-      </section>
     </div>
   </div>
 </template>

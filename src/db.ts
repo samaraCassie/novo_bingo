@@ -15,6 +15,7 @@ export interface Todo {
 export interface Jogador {
   Id?: number;
   Cartelas: number[];
+  Nome: string;
 }
 
 export interface Cartela {

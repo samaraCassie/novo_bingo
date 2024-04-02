@@ -1,4 +1,5 @@
 <!-- eslint-disable no-console -->
+<!-- eslint-disable no-console -->
 <template>
   <q-page-container>
     <div class="row">
@@ -54,8 +55,8 @@
         </q-card>
       </div>
     </div>
-    <div class="row" v-for="(Cartela, index) in QntCartelas" :key="index">
-      <div class="col-12">
+    <div class="row q-pa-lg">
+      <div class="col-6 q-mt-lg  q-pa-lg" v-for="(Cartela, index) in QntCartelas" :key="index">
         <CartelaAdd />
       </div>
     </div>
@@ -66,6 +67,15 @@
 import { db } from '@/db';
 import { ref } from 'vue';
 import CartelaAdd from './CartelaAdd.vue';
+
+const Props = defineProps({
+  valorId: {
+    type: String,
+    required: true,
+  },
+});
+
+console.log(Props);
 
 let valid:boolean = false;
 const status = ref<string>('');
