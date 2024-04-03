@@ -8,7 +8,7 @@
           <div class="row">
             <div class="col-10">
               <div class="q-card-section">
-                <div class="text-h3 q-pa-md">Hello</div>
+                <div class="text-h3 q-pa-md">Bingo</div>
               </div>
             </div>
           </div>

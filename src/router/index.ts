@@ -7,11 +7,6 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'CartelaAdd',
-      component: CartelaAdd,
-    },
-    {
-      path: '/info',
       name: 'BoxInfoPartida',
       component: BoxInfoPartida,
     },
