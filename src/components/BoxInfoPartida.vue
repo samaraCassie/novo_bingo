@@ -29,7 +29,7 @@
                   <div class="q-mr-sm q-ml-lg col-1">
                     <q-field rounded outlined label="Quantidade" stack-label>
                       <template v-slot:control>
-                        <div class="self-center full-width no-outline text-center" tabindex="0">{{ QntCartelas }}</div>
+                        <div class="self-center full-width no-outline text-center q-pr-lg q-pl-lg" tabindex="0">{{ QntCartelas }}</div>
                       </template>
                     </q-field>
                   </div>
@@ -128,15 +128,16 @@ const MenosCartela = () => {
 };
 
 const AddJogador = async () => {
+  if (!QntCartelas.value || QntCartelas.value === 0) {
+    valid = false;
+    status.value = 'Informe a quantidade de cartelas.';
+  }
+  if (!nomeJogador.value) {
+    valid = false;
+    status.value = 'Informe o nome do jogador.';
+  }
   if (valid) {
     try {
-      // eslint-disable-next-line no-plusplus
-      /* for (let i = 0; i <= QntCartelas.value; i++) {
-      } */
-      /* if (!QntCartelas.value || QntCartelas.value === 0) {
-      valid = false;
-      return 'Informe a quantidade de cartelas.';
-      } */
       const id = await db.jogadores.add({
         Nome: nomeJogador.value,
         Cartelas: ListaCartelas,
@@ -152,6 +153,7 @@ const AddJogador = async () => {
 
 const Cancelar = async () => {
   try {
+    nomeJogador.value = '';
     QntCartelas.value = 0;
     ListaCartelas.slice(0, ListaCartelas.length);
     status.value = '';
