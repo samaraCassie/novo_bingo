@@ -1,7 +1,6 @@
 <!-- eslint-disable no-console -->
-<!-- eslint-disable no-console -->
 <template>
-  <q-page-container>
+  <q-page-container class="q-mt-lg">
     <div class="row">
       <div class="col-12">
         <q-card>
@@ -21,11 +20,18 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-2">
-                    <q-btn @click="MaisCartela" label="+ Cartela" q />
+                  <div class="q-mr-md q-ml-sm">
+                    <q-btn @click="MaisCartela" label="+ Cartela" />
                   </div>
-                  <div class="col-10">
-                    <div>{{ QntCartelas }}</div>
+                  <div class="q-mr-sm q-ml-sm">
+                    <q-btn @click="MenosCartela" label="- Cartela" />
+                  </div>
+                  <div class="q-mr-sm q-ml-md col-1">
+                    <q-field rounded outlined label="Quantidade" stack-label>
+                      <template v-slot:control>
+                        <div class="self-center full-width no-outline text-center" tabindex="0">{{ QntCartelas }}</div>
+                      </template>
+                    </q-field>
                   </div>
                 </div>
               </q-card-section>
@@ -36,7 +42,7 @@
               <q-card-section>
                 <div class="row">
                   <div class="q-mr-md">
-                    <q-btn>Cancelar</q-btn>
+                    <q-btn @click="Cancelar">Cancelar</q-btn>
                   </div>
                   <div>
                     <q-btn @click="Enviar">Enviar</q-btn>
@@ -57,7 +63,7 @@
     </div>
     <div class="row q-pa-lg">
       <div class="col-6 q-mt-lg  q-pa-lg" v-for="(Cartela, index) in QntCartelas" :key="index">
-        <CartelaAdd />
+        <CartelaAdd @itemCartela="GravarCartelas" />
       </div>
     </div>
   </q-page-container>
@@ -68,14 +74,8 @@ import { db } from '@/db';
 import { ref } from 'vue';
 import CartelaAdd from './CartelaAdd.vue';
 
-const Props = defineProps({
-  valorId: {
-    type: String,
-    required: true,
-  },
-});
-
-console.log(Props);
+const ListaCartelas = [null];
+ListaCartelas.pop();
 
 let valid:boolean = false;
 const status = ref<string>('');
@@ -93,21 +93,38 @@ const nomeJogadorRules = [
   },
 ];
 const QntCartelas = ref(null);
-/* const QntCartelasRules = [
-  (value) => {
-    if (!value) return 'Informe a quantidade de cartelas.';
-    valid = true;
-    return valid;
-  },
- (value) => {
-    if (value > 5) return 'Limitado à 4 cartelas.';
-    valid = true;
-    return valid;
-  },
-]; */
+
+const GravarCartelas = (item) => {
+  if (item != null) {
+    ListaCartelas.push(item);
+  }
+};
 
 const MaisCartela = () => {
-  QntCartelas.value += 1;
+  if (QntCartelas.value >= 4) {
+    valid = false;
+    status.value = 'Limitado à 4 cartelas.';
+  } else {
+    valid = true;
+    status.value = '';
+  }
+  if (valid === true) {
+    QntCartelas.value += 1;
+  }
+};
+
+const MenosCartela = () => {
+  if (QntCartelas.value <= 1) {
+    valid = false;
+    status.value = 'Não é possivel menos de uma cartela';
+  } else {
+    valid = true;
+    status.value = '';
+  }
+  if (valid === true) {
+    QntCartelas.value -= 1;
+    ListaCartelas.pop();
+  }
 };
 
 const Enviar = async () => {
@@ -116,16 +133,30 @@ const Enviar = async () => {
       // eslint-disable-next-line no-plusplus
       /* for (let i = 0; i <= QntCartelas.value; i++) {
       } */
+      /* if (!QntCartelas.value || QntCartelas.value === 0) {
+      valid = false;
+      return 'Informe a quantidade de cartelas.';
+      } */
       const id = await db.jogadores.add({
         Nome: nomeJogador.value,
-        Cartelas: QntCartelas.value,
+        Cartelas: ListaCartelas,
       });
       status.value = `id: ${id}`;
     } catch (error) {
       status.value = `Falha ao adicionar a cartela: ${error}`;
     }
     console.log(nomeJogador.value);
-    console.log(QntCartelas.value);
+    console.log(ListaCartelas.values);
+  }
+};
+
+const Cancelar = async () => {
+  try {
+    QntCartelas.value = 0;
+    ListaCartelas.slice(0, ListaCartelas.length);
+    status.value = '';
+  } catch (error) {
+    status.value = `Não foi possível cancelar: ${error}`;
   }
 };
 
