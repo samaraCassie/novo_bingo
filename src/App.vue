@@ -24,9 +24,7 @@ queryList.addEventListener('change', (event) => {
 <template>
   <q-toolbar class="bg-black text-white">
     <q-toolbar-title>
-      <q-btn :to="{ name: 'home' }">
-        Vue CRUD Client
-      </q-btn>
+      LOGO
     </q-toolbar-title>
   </q-toolbar>
   <q-layout>

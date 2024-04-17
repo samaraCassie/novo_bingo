@@ -15,6 +15,7 @@ export interface Todo {
 export interface Jogador {
   Id?: number;
   Cartelas: number[];
+  Nome: string;
 }
 
 export interface Cartela {
@@ -34,10 +35,10 @@ export class MySubClassedDexie extends Dexie {
 
   constructor() {
     super('TestandoDexie');
-    this.version(2).stores({
+    this.version(3).stores({
       friends: '++id, name, age',
       todos: '++id, content, done',
-      jogadores: '++id, nome, cartelas',
+      jogadores: '++id, nome, *cartelas',
       cartelas: '++id, coluna, numeros, marcados',
     });
   }

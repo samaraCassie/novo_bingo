@@ -15,5 +15,4 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: "/novo_bingo/",
 });

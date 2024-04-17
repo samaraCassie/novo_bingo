@@ -1,15 +1,21 @@
 <!-- eslint-disable vue/max-len -->
-<!-- eslint-disable no-console -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { db } from '@/db';
+import { IndexableType } from 'dexie';
+
+const emit = defineEmits(['itemCartela']);
 
 const colunas : string[] = ['B', 'I', 'N', 'G', 'O'];
 const numLinhas: number = 5;
+const id = ref<IndexableType>(null);
 
-// Inicializando a matriz desserts com zeros
-// eslint-disable-next-line vue/max-len
-const desserts: number[][] = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+const desserts: number[][] = [
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0]];
 const status = ref<string>('');
 let blocosMarcados: boolean[][];
 
@@ -32,7 +38,6 @@ const inicializarDesserts = (): number[][] => {
   let max: number = 15;
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < numLinhas; i++) {
-    // desserts = new Array(numLinhas).fill(colunas);
     blocosMarcados = new Array(numLinhas).fill(colunas);
   }
 
@@ -40,8 +45,6 @@ const inicializarDesserts = (): number[][] => {
   for (let i = 0; i < 5; i++) {
     const NumerosSorteados:number[] = gerarNumerosUnicos(numLinhas, min, max);
     desserts[i] = NumerosSorteados;
-    console.log(desserts[i]);
-    console.log(desserts);
     min += 15;
     max += 15;
   }
@@ -52,12 +55,12 @@ const inicializarDesserts = (): number[][] => {
 const addCartela = async () => {
   try {
     await inicializarDesserts();
-    console.log(desserts.values);
-    const id = await db.cartelas.add({
+    id.value = await db.cartelas.add({
       Numeros: desserts,
       Marcados: blocosMarcados,
     });
-    status.value = `id: ${id}`;
+    status.value = `nº ${id.value}`;
+    emit('itemCartela', id.value);
   } catch (error) {
     status.value = `Falha ao adicionar a cartela: ${error}`;
   }
@@ -71,6 +74,7 @@ onMounted(() => {
   inicializarDesserts();
   addCartela();
 });
+
 </script>
 
 <template>
@@ -110,9 +114,6 @@ onMounted(() => {
           </div>
         </div>
       </q-card>
-      <section class="secBotoes q-mt-lg">
-        <q-btn color="white" text-color="black" label="Adicionar Cartela" @click="addCartela" />
-      </section>
     </div>
   </div>
 </template>
