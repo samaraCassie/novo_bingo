@@ -23,10 +23,10 @@
                   <div class="q-mr-md q-ml-sm">
                     <q-btn @click="MaisCartela" label="+ Cartela" />
                   </div>
-                  <div class="q-mr-sm q-ml-sm">
+                  <div class="q-mr-lg q-ml-sm">
                     <q-btn @click="MenosCartela" label="- Cartela" />
                   </div>
-                  <div class="q-mr-sm q-ml-md col-1">
+                  <div class="q-mr-sm q-ml-lg col-1">
                     <q-field rounded outlined label="Quantidade" stack-label>
                       <template v-slot:control>
                         <div class="self-center full-width no-outline text-center" tabindex="0">{{ QntCartelas }}</div>
@@ -45,7 +45,7 @@
                     <q-btn @click="Cancelar">Cancelar</q-btn>
                   </div>
                   <div>
-                    <q-btn @click="Enviar">Enviar</q-btn>
+                    <q-btn @click="AddJogador">Adicionar Jogador</q-btn>
                   </div>
                 </div>
               </q-card-section>
@@ -61,9 +61,9 @@
         </q-card>
       </div>
     </div>
-    <div class="row q-pa-lg">
+    <div class="row q-pa-lg q-ma-lg">
       <div class="col-6 q-mt-lg  q-pa-lg" v-for="(Cartela, index) in QntCartelas" :key="index">
-        <CartelaAdd @itemCartela="GravarCartelas" />
+        <CartelaAdd @itemCartela="GravarCartelas" class="q-ma-md" />
       </div>
     </div>
   </q-page-container>
@@ -127,7 +127,7 @@ const MenosCartela = () => {
   }
 };
 
-const Enviar = async () => {
+const AddJogador = async () => {
   if (valid) {
     try {
       // eslint-disable-next-line no-plusplus

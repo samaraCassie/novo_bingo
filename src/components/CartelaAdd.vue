@@ -10,7 +10,12 @@ const colunas : string[] = ['B', 'I', 'N', 'G', 'O'];
 const numLinhas: number = 5;
 const id = ref<IndexableType>(null);
 
-const desserts: number[][] = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+const desserts: number[][] = [
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0]];
 const status = ref<string>('');
 let blocosMarcados: boolean[][];
 
